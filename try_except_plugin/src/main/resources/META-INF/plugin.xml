@@ -1,0 +1,11 @@
+<actions>
+    <action id="com.example.plugin.RemoveTryExceptAction" class="com.example.plugin.RemoveTryExceptAction" text="Remove Try-Except" description="Remove the try-except block and dedent the code.">
+        <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+    </action>
+    <action id="com.example.plugin.AddTryExceptAction" class="com.example.plugin.AddTryExceptAction" text="Add Try-Except"
+            description="Wrap the selected code in try-except block.">
+        <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+    </action>
+</actions>
+
+

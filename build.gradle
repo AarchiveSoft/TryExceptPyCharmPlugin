@@ -1,0 +1,29 @@
+plugins {
+    id 'org.jetbrains.intellij' version '1.13.3'  // Latest IntelliJ Plugin version
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+}
+
+group 'com.yourplugin'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+intellij {
+    version.set("2023.2")  // Use .set() for setting the PyCharm Community version
+    type.set("PC")  // Set to target PyCharm Community Edition (PC)
+}
+
+tasks {
+    patchPluginXml {
+        changeNotes.set("""
+          Initial plugin version.
+        """)  // Use .set() for setting change notes
+    }
+}
