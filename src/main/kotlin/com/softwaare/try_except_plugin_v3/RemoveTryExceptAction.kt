@@ -13,28 +13,25 @@ import com.jetbrains.python.psi.LanguageLevel
 class RemoveTryExceptAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        val editor = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.EDITOR) ?: return
-        val file = e.getData(com.intellij.openapi.actionSystem.CommonDataKeys.PSI_FILE) ?: return
+        val editor = e.getData(CommonDataKeys.EDITOR) ?: return
+        val file = e.getData(CommonDataKeys.PSI_FILE) ?: return
 
         val caretOffset = editor.caretModel.offset
         val elementAtCaret = file.findElementAt(caretOffset)
         val tryExceptStatement = PsiTreeUtil.getParentOfType(elementAtCaret, PyTryExceptStatement::class.java) ?: return
 
         WriteCommandAction.runWriteCommandAction(project) {
-            val body = tryExceptStatement.tryPart.statementList.statements
-            val elementFactory = PyElementGenerator.getInstance(project)
+            val document = editor.document
+            val tryStartOffset = tryExceptStatement.textRange.startOffset
+            val exceptStatement = tryExceptStatement.exceptParts.firstOrNull() ?: return
+            val exceptEndOffset = exceptStatement.textRange.endOffset
 
-            // Remove try and except parts
-            tryExceptStatement.deleteChildRange(tryExceptStatement.tryPart.firstChild, tryExceptStatement.lastChild)
+            // Get the code between the try and except
+            val codeBlock = document.getText(tryExceptStatement.tryPart.textRange)
+            val undentedCode = codeBlock.replaceIndent("")
 
-            // Add body back to the main block, dedented
-            for (statement in body) {
-                val newStatement = elementFactory.createFromText(LanguageLevel.PYTHON36, PyElement::class.java, statement.text)
-                tryExceptStatement.parent.addBefore(newStatement, tryExceptStatement)
-            }
-
-            // Remove original tryExcept block
-            tryExceptStatement.delete()
+            // Replace try-except block with dedented code
+            document.replaceString(tryStartOffset, exceptEndOffset, undentedCode)
         }
     }
 }

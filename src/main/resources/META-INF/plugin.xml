@@ -2,6 +2,8 @@
     <id>com.example.tryexceptplugin</id>
     <name>Try Except</name>
     <version>1.0-SNAPSHOT</version>
+    <idea-version since-build="241.0" until-build="241.*" />
+
     <vendor>Softwaare</vendor>
 
     <description>

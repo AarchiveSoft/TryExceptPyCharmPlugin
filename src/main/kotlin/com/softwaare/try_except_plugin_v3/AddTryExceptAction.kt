@@ -19,16 +19,22 @@ class AddTryExceptAction : AnAction() {
         val selectedText = selectionModel.selectedText ?: return
 
         WriteCommandAction.runWriteCommandAction(project) {
-            val elementFactory = PyElementGenerator.getInstance(project)
-            val tryExceptText = """
+            val document = editor.document
+            val startOffset = selectionModel.selectionStart
+            val endOffset = selectionModel.selectionEnd
+
+            // Add try-except block with correct indentation
+            val indentedText = selectedText.prependIndent("    ")
+            val tryExceptBlock = """
                 try:
-                    $selectedText
+                $indentedText
                 except Exception as e:
                     print(f"An error occurred: {e}")
             """.trimIndent()
 
-            val newTryExceptBlock = elementFactory.createFromText(LanguageLevel.PYTHON36, PyElement::class.java, tryExceptText)
-            file.add(newTryExceptBlock)
+            // Replace the selected text with try-except block
+            document.replaceString(startOffset, endOffset, tryExceptBlock)
         }
     }
 }
+
