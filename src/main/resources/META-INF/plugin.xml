@@ -4,24 +4,29 @@
     <version>1.0-SNAPSHOT</version>
     <idea-version since-build="241.0" until-build="242.*" />
 
-    <vendor email="support@example.com" url="https://www.example.com">
+    <vendor email="support@aarchive.net" url="https://github.com/AarchiveSoft">
         Softwaare
     </vendor>
 
     <description>
         A plugin that allows users to add or remove try-except blocks in PyCharm.
+        To add try-except, select block of code, right click, select 'add try-except'.
+        To remove, simply right click a try: statement and select 'remove try-except', this will remove the selected try statement, the corresponding except statement, and undent the code in between.
     </description>
 
     <!-- Dependency on Python support in PyCharm -->
+    <!--suppress PluginXmlValidity -->
     <depends>com.intellij.modules.python</depends>
 
     <actions>
+        <!-- Action to remove try-except block -->
         <action id="com.softwaare.try_except_plugin.RemoveTryExceptAction"
                 class="com.softwaare.try_except_plugin_v3.RemoveTryExceptAction"
                 text="Remove Try-Except"
                 description="Remove the try-except block and dedent the code.">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
+        <!-- Action to add try-except block -->
         <action id="com.softwaare.try_except_plugin.AddTryExceptAction"
                 class="com.softwaare.try_except_plugin_v3.AddTryExceptAction"
                 text="Add Try-Except"
