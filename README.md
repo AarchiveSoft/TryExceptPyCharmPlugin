@@ -2,7 +2,8 @@
   <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" alt="project-logo">
 </p>
 <p align="center">
-    <h1 align="center">TRYEXCEPTPYCHARMPLUGIN</h1>
+    <h1 align="center">TRY EXCEPT</h1>
+	<h1 align="center">PYCHARM PLUGIN</h1>
 </p>
 <p align="center">
     <em>Empower Python code with effortless error handling!</em>
